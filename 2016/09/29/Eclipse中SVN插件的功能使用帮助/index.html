@@ -1,0 +1,215 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="chinleo's sekai"><title>Eclipse中SVN插件的功能使用帮助 | C的世界</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">C的世界</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Eclipse中SVN插件的功能使用帮助</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-09-29</div><div class="post-tags"><a class="post-tag-link" href="/tags/eclipse/">eclipse</a>/<a class="post-tag-link" href="/tags/svn/">svn</a></div></div></div><article><div class="container post"><!-- TOC -->
+<ul>
+<li><a href="#引言">引言</a></li>
+<li><a href="#准备工作">准备工作</a><ul>
+<li><a href="#安装svn插件">安装svn插件</a></li>
+<li><a href="#调出svn-repository-exploring">调出SVN Repository Exploring</a></li>
+<li><a href="#个性化定制">个性化定制</a><ul>
+<li><a href="#调出svn菜单">调出SVN菜单</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#功能">功能</a><ul>
+<li><a href="#new-repository-location">New Repository Location</a></li>
+<li><a href="#check-out">Check Out</a></li>
+<li><a href="#synchronize-with-repository">Synchronize with Repository</a></li>
+<li><a href="#update">Update</a></li>
+<li><a href="#commit">Commit</a></li>
+<li><a href="#tag">Tag</a></li>
+<li><a href="#branch">Branch</a></li>
+<li><a href="#switch">Switch</a></li>
+<li><a href="#merge">Merge</a><ul>
+<li><a href="#合并一个版本范围">合并一个版本范围</a></li>
+<li><a href="#合并两个不同的树">合并两个不同的树</a></li>
+<li><a href="#reintegrate">Reintegrate</a></li>
+</ul>
+</li>
+<li><a href="#show-history">Show History</a></li>
+<li><a href="#compare-with">Compare With</a></li>
+<li><a href="#cleanup">Cleanup</a></li>
+</ul>
+</li>
+<li><a href="#设置选项详解">设置选项详解</a><ul>
+<li><a href="#svn-general">SVN-General</a></li>
+<li><a href="#svn-svn-connector">SVN-SVN Connector</a></li>
+<li><a href="#svn-project-structure">SVN-Project structure</a></li>
+<li><a href="#svn-view-settings">SVN-View Settings</a></li>
+<li><a href="#svn-error-reporting">SVN-Error Reporting</a></li>
+</ul>
+</li>
+<li><a href="#常用操作">常用操作</a><ul>
+<li><a href="#提交更改">提交更改</a></li>
+<li><a href="#将自己的开发分支marge回主干">将自己的开发分支Marge回主干</a></li>
+</ul>
+</li>
+<li><a href="#常见错误及解决">常见错误及解决</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>  本文将对Eclipse中SVN工具的功能提供使用帮助，并不从理论或者命令行的角度进行详解与分析。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>  <em>本文中的操作平台为Eclipse IDE for Java EE 4.5.1版本</em></p>
+<h3 id="安装svn插件"><a href="#安装svn插件" class="headerlink" title="安装svn插件"></a>安装svn插件</h3><ol>
+<li>打开eclipse 的应用市集（Help -&gt; Eclipse Marketplace…）</li>
+<li>输入检索条件“svn”</li>
+<li>选择需要的插件点击Install，并按提示完成安装</li>
+</ol>
+<blockquote>
+<ul>
+<li>安装完插件，可能提示重启Eclipse。</li>
+<li>推荐选择<code>Subversive - SVN Team Provider</code>插件。</li>
+</ul>
+</blockquote>
+<h3 id="调出SVN-Repository-Exploring"><a href="#调出SVN-Repository-Exploring" class="headerlink" title="调出SVN Repository Exploring"></a>调出SVN Repository Exploring</h3><p>  点击<img src="open-perspective.png" alt="open-perspective.png" title="open perspective"> （默认位于Eclipse工具栏右侧）打开open perspective 窗口。选中<code>SVN Repository Exploring</code>并点击<code>OK</code></p>
+<p><img src="open-perspective-view.png" alt="open-perspective-view.png" title="title"> </p>
+<h3 id="个性化定制"><a href="#个性化定制" class="headerlink" title="个性化定制"></a>个性化定制</h3><p>  <em>以下属于可选操作，根据自己的习惯选择使用。</em></p>
+<h4 id="调出SVN菜单"><a href="#调出SVN菜单" class="headerlink" title="调出SVN菜单"></a>调出SVN菜单</h4><p>  <code>Window</code> → <code>Perspective</code> → <code>Customize Perspective</code>切换到<code>Action Set Availability</code>勾选<code>SVN</code></p>
+<blockquote>
+<p>类似的方法可以设置其他个性化视图风格，使Eclipse更顺手</p>
+</blockquote>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><h3 id="New-Repository-Location"><a href="#New-Repository-Location" class="headerlink" title="New Repository Location"></a>New Repository Location</h3><p>  新建一个远程SVN资源库连接。按弹出框提示填入对应的内容即可。一般仅须填写General选项卡。<br>  位于<code>SVN Repository Exploring</code></p>
+<p>  <img src="svn-new-repository-location.png" alt="new-repository-location.png"></p>
+<h3 id="Check-Out"><a href="#Check-Out" class="headerlink" title="Check Out"></a>Check Out</h3><p>  检出。将远程SVN资源库中的某一位置复制到本地，并对其进行版本控制。默认检出目录为Eclipse的当前Workspace。</p>
+<blockquote>
+<p>若本地存在相同名称的项目，将会提示覆盖当前项目。</p>
+</blockquote>
+<h3 id="Synchronize-with-Repository"><a href="#Synchronize-with-Repository" class="headerlink" title="Synchronize with Repository"></a>Synchronize with Repository</h3><p>  与版本库进行同步。将会对比本地代码与版本库中当前分支<code>HEAD</code>版的代码。</p>
+<h3 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h3><p>  更新至当前分支的最新版本（<code>HEAD</code>）。</p>
+<blockquote>
+<p>若要更新到自定义版本请点击<code>Update to Revision...</code></p>
+</blockquote>
+<h3 id="Commit"><a href="#Commit" class="headerlink" title="Commit"></a>Commit</h3><p>  提交更改到当前分支。</p>
+<blockquote>
+<p>强烈建议填写Comment，以便团队成员包括自己可以快速知道更改内容</p>
+</blockquote>
+<h3 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h3><p>  标签。仅仅是一份快照，记录标记时刻的各个文件的版本。通常用于发布版本。</p>
+<h3 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h3><p>  分支。用于团队并行开发以及新功能测试，能够避免代码冲突，不影响主干（用于生产环境的版本）上的代码。</p>
+<blockquote>
+<p>建议：建立的分支路径及名称制定团队的统一规范，便于管理。</p>
+</blockquote>
+<h3 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h3><p>  切换分支。将本地代码从当前分支切换到选定的分支。</p>
+<blockquote>
+<p><code>Switch</code>的url请务必选择与当前选定的目录级别相同的版本库目录，否则会失败。</p>
+</blockquote>
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>  合并分支</p>
+<h4 id="合并一个版本范围"><a href="#合并一个版本范围" class="headerlink" title="合并一个版本范围"></a>合并一个版本范围</h4><p>  将选择的url及版本合并到本地版本中，合并后的版本提交到本地版本所在的分支。</p>
+<p><img src="merge-single-url.png" alt="merge-single-url.png"></p>
+<p><strong>选项解释</strong></p>
+<ul>
+<li>Revisions<ul>
+<li>All：从版本库的第一个版本开始，合并所有修改</li>
+<li>Start from copy：从所选择的分支生成时的版本号开始，合并所有更改</li>
+<li>Revisions ：手动选择版本</li>
+<li>Reverse merge：逆向合并</li>
+</ul>
+</li>
+<li>Depth：深度，操作等同于<code>checkout</code>的深度<ul>
+<li>Only a folder：当前文件夹（不包括文件夹内文件）</li>
+<li>Files in a folder：当前文件夹中的文件</li>
+<li>Direct children：当前文件夹中的文件，及子文件中的文件</li>
+<li>Recursively：递归（选中的目录中所有的文件）<ul>
+<li>Working copy：包含本修改过的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Preview：预览产生影响的文件列表</li>
+</ul>
+<p><strong>url的选择</strong><br>  url路径须跟本地合并目录的级别一致，否则将导致出错。</p>
+<h4 id="合并两个不同的树"><a href="#合并两个不同的树" class="headerlink" title="合并两个不同的树"></a>合并两个不同的树</h4><p>  将第二个url版本的合并到第一个url的版本中，并将合并后的代码下载到本地手动解决冲突。</p>
+<p><img src="merge-2-urls.png" alt="merge-2-urls.png"></p>
+<h4 id="Reintegrate"><a href="#Reintegrate" class="headerlink" title="Reintegrate"></a>Reintegrate</h4><p>  将所选url的分支所做的更改，全部应用到本地版本的分支。<strong>本地版本所在分支的全部更改将被其覆盖</strong>。</p>
+<p><img src="merge-reintegrate.png" alt="merge-reintegrate.png"></p>
+<h3 id="Show-History"><a href="#Show-History" class="headerlink" title="Show History"></a>Show History</h3><p>  显示SVN版本提交历史。可以查看选定的目录或文件在当前分支上的所有版本的更改记录。</p>
+<blockquote>
+<p>在进行版本比较，代码追查的时候非常有用</p>
+</blockquote>
+<h3 id="Compare-With"><a href="#Compare-With" class="headerlink" title="Compare With"></a>Compare With</h3><p>  比较选定文件的本地副本版本与以下几种方式查找的版本之间的差异。右键菜单可调出。</p>
+<ul>
+<li><code>Base from Working Copy</code>：与修改前的本地版本</li>
+<li><code>Lastest from Repository</code>：与版本库中当前分支的<code>HEAD</code>版本</li>
+<li><code>Revision or URL...</code>：与指定的<code>URL</code>或<code>Revision</code></li>
+<li><code>Branch...</code>：与指定的其他分支中<code>HEAD</code>版的同文件</li>
+<li><code>Tag...</code>：与指定的<code>Tag</code>版本的同文件</li>
+<li><code>Each Other</code>：选择2个文件时有效，比较选择的这2个文件</li>
+</ul>
+<p><img src="svn-compare-with.png" alt="compare-with.png"></p>
+<h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h3><p>  清理。当本地目录出现无法提交、文件版本冲突等问题，其中部分问题可以通过<code>Cleanup</code>解决。</p>
+<h2 id="设置选项详解"><a href="#设置选项详解" class="headerlink" title="设置选项详解"></a>设置选项详解</h2><p>  <em>SVN的设置选项位于<code>Preferences</code> → <code>Team</code> → <code>SVN</code></em></p>
+<blockquote>
+<p>这里以<code>Subversive - SVN Team Provider</code>插件为例</p>
+</blockquote>
+<h3 id="SVN-General"><a href="#SVN-General" class="headerlink" title="SVN-General"></a>SVN-General</h3><h3 id="SVN-SVN-Connector"><a href="#SVN-SVN-Connector" class="headerlink" title="SVN-SVN Connector"></a>SVN-SVN Connector</h3><h3 id="SVN-Project-structure"><a href="#SVN-Project-structure" class="headerlink" title="SVN-Project structure"></a>SVN-Project structure</h3><h3 id="SVN-View-Settings"><a href="#SVN-View-Settings" class="headerlink" title="SVN-View Settings"></a>SVN-View Settings</h3><h3 id="SVN-Error-Reporting"><a href="#SVN-Error-Reporting" class="headerlink" title="SVN-Error Reporting"></a>SVN-Error Reporting</h3><h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><h3 id="提交更改"><a href="#提交更改" class="headerlink" title="提交更改"></a>提交更改</h3><ol>
+<li><p>当前状态：完成自己的开发任务，准备提交更改到版本库。</p>
+</li>
+<li><p>点击<code>Synchronize with Repository</code>，待系统操作完成切换到<code>Team Synchronize</code>。</p>
+</li>
+<li><p>检视<code>Synchronize</code>视图中列出的文件，确认要提交的文件。</p>
+<blockquote>
+<p>若有某些文件此次不想提交，可以选中右击<code>Remove from View</code>，会暂时将此文件从当前清单中移除</p>
+</blockquote>
+</li>
+<li><p>选中要提交的文件或目录，点击<code>Commit</code>，提交到版本库。</p>
+</li>
+</ol>
+<h3 id="将自己的开发分支Marge回主干"><a href="#将自己的开发分支Marge回主干" class="headerlink" title="将自己的开发分支Marge回主干"></a>将自己的开发分支Marge回主干</h3><p>  此场景适用于将更改合并回<strong>主干</strong>（trunk）或<strong>主开发分支</strong>（dev）  </p>
+<ol>
+<li><p>当前状态：当前工作目录位于自己的开发分支上，完成了开发任务。</p>
+</li>
+<li><p><a href="#提交更改">提交当前的更改</a>，完成后<code>Update</code>到<code>HEAD</code>版本。</p>
+</li>
+<li><p>选中当前要切换的项目根目录，点击<code>Switch</code>按钮，打开<code>Switch To</code>弹框。选择<code>URL</code>到主干的路径，点击<code>OK</code>。待切换完成后进行下步操作。</p>
+</li>
+<li><p>还是选择项目的根目录，点击<code>Merge</code>按钮。切换到<code>URL</code>选项卡，选择要合并的分支的URL。</p>
+<blockquote>
+<p>一般建议合并整个项目的目录，以免遗漏合并更改过的代码。</p>
+</blockquote>
+</li>
+<li><p><code>Revision</code>选择<code>Start from copy</code>，<code>Depth</code>选择<code>Recursively</code>。</p>
+</li>
+</ol>
+<p><img src="svn-merge-start-from-copy.svg" alt="merge-start-from-copy.svg"></p>
+<blockquote>
+<p>此场景下选择<code>Start from copy</code>（即分支创建的版本）最为适宜，可避免遗漏更改，也减少冲突的数量。选择<code>Recursively</code>的目的是避免本地目录尚未提交的文件影响合并。</p>
+</blockquote>
+<ol>
+<li><p>点击<code>Preview</code>，检视弹出的窗口中合并影响的文件，大致确认是否为自己修改。</p>
+<blockquote>
+<p><code>Preview</code>可减少因操作失误导致的合并错误，影响效率和版本控制的可靠性。</p>
+</blockquote>
+</li>
+<li><p>点击<code>OK</code>，等待处理完成后自动切换到<code>Team Synchronize</code>。</p>
+</li>
+<li><p><strong>依次确认</strong><code>Synchronize</code>视图中所显示的更改，并手动处理冲突。几种冲突类型如下：</p>
+<ul>
+<li><p>Tree Conflicts：文件内容无变动，仅仅是分支产生的文件识别冲突。选中右击，选择<code>Edit Tree Conflicts</code>。在弹出框中选择一种处理方式：</p>
+<ul>
+<li>Incoming Changes</li>
+<li></li>
+<li></li>
+</ul>
+</li>
+<li><p>Conflicts：文件内容有冲突。选中右击，选择<code>Edit Conflicts</code>。对比代码不同的地方，手动合并后保存。再选中当前文件，右击<code>Mark as Merged</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>解决全部冲突后，切换回<code>JavaEE Perspective</code>，再选中当前项目的根目录，并点击<code>Synchronize with Repository</code>。此时确认变更后，即可<code>Commit</code>到版本库。</p>
+</li>
+</ol>
+<h2 id="常见错误及解决"><a href="#常见错误及解决" class="headerlink" title="常见错误及解决"></a>常见错误及解决</h2><ul>
+<li><p>任何可以选择<code>Revisions</code>的界面，所有通过<code>Browse...</code>按钮的操作都会出错<br> 错误信息：Get Log Messages operation failed<br> 解决方法：<code>Preferences</code>-&gt;<code>Team</code>-&gt;<code>SVN</code>切换到<code>SVN Connector</code>选项卡,去掉<code>Show merged revisions</code>的勾选</p>
+</li>
+<li></li>
+</ul>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2016/09/29/Eclipse中SVN插件的功能使用帮助/" data-title="Eclipse中SVN插件的功能使用帮助" data-url="https://chinleo.github.io/2016/09/29/Eclipse中SVN插件的功能使用帮助/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'chinleo'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:chinleo@outlook.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/chinleo" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Chinleo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/chinleo/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//apps.bdimg.com/libs/fancybox/2.1.5/jquery.fancybox.min.css"><script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script><script src="//apps.bdimg.com/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

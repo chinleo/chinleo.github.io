@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="chinleo's sekai"><title>Tomcat配置单机多实例导致找不到APR Native library的问题解决 | C的世界</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">C的世界</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Tomcat配置单机多实例导致找不到APR Native library的问题解决</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-09-24</div><div class="post-tags"><a class="post-tag-link" href="/tags/java-web/">java-web</a>/<a class="post-tag-link" href="/tags/tomcat/">tomcat</a></div></div></div><article><div class="container post"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>采用修改CATALINA_BASE环境变量方法配置单机多实例时，若想要启用APR库，会出现以下错误：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: </div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>这是由于没有使用默认的配置，导致JVM启动时，没有识别到APR所在的路径，需要手工添加<code>-Djava.library.path</code>参数指定到APR所在路径。</p>
+<ol>
+<li>确保<code>CATALINA_HOME\bin</code>存在<code>tcnative-1.dll</code>这个文件。  </li>
+<li><p>在<code>CATALINA_HOME\bin</code>路径下建立<code>setenv.bat</code>文件，添加内容如下：  </p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">set</span> CATALINA_OPTS=-Djava.library.<span class="built_in">path</span>=<span class="variable">%CATALINA_HOME%</span>\bin</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行多实例配置的启动文件即可。  </p>
+</li>
+</ol>
+<blockquote>
+<p>以上操作步骤，为Windows系统环境，并按Tomcat官方推荐的方法进行的配置</p>
+</blockquote>
+</div><!-- comment system--><div class="container"><hr><div data-thread-key="2016/09/24/Tomcat配置单机多实例导致找不到APR Native library的问题解决/" data-title="Tomcat配置单机多实例导致找不到APR Native library的问题解决" data-url="https://chinleo.github.io/2016/09/24/Tomcat配置单机多实例导致找不到APR Native library的问题解决/" class="ds-thread"></div><script>var duoshuoQuery = {short_name:'chinleo'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:chinleo@outlook.com" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="https://github.com/chinleo" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2017 <a href="/" rel="nofollow">Chinleo</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/chinleo/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//apps.bdimg.com/libs/fancybox/2.1.5/jquery.fancybox.min.css"><script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script><script src="//apps.bdimg.com/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
